@@ -23,7 +23,12 @@ passport.use('local-signup', new LocalStrategy({
     const newUser = new User();
     newUser.email = email;
     newUser.password = newUser.encryptPassword(password);
+    const bodyRole = req.body.role;
     newUser.rol = req.body.role;
+
+    if(bodyRole == "Alumno"){
+      newUser.subjects = (["Lengua", "Matematicas", "Historia", "Quimica"]);
+    }
     await newUser.save();
     done(null, newUser);
   }

@@ -1,0 +1,68 @@
+<% include partials/_header %>
+<!-- No toca los estilos -->
+<style>
+  div.row{
+   margin-right: 0px;
+}
+div.container-fluid{
+   padding-right: 0px;
+}
+
+/* HAY QUE CONSEGUIR QUE AL DAR CLIC EN EL NOMBRE NOS LLEVE A OTRA VIEW DONDE NOS MUESTRE 
+LOS ALUMNOS Y PROFESORES INSCRITOS EN ESA ASIGNATURA. ES PARECIDO A LA VIEW EDIT: 
+EN LA VIEW DE EDITAR ASIGNATURAS DEBEMOS PONER IFS PARA SABER SI EL ROL ES ALUMNO O PROFESOR*/
+
+/* TAMBIEN DEBEMOS IMPLEMENTAR LOS BOTONES PARA EDITAR/ELIMINAR LAS ASIGNATURAS YA EXISTENTES */
+
+/* UNA VEZ HECHOS LOS BOTONES SERIAN LOS MISMOS PARA ALUMNOS Y PROFESORES - COPY PASTE LO QUE TE GUSTA JAIIII */
+
+</style>
+  <div class="container" style="padding-left: 0;">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <form action="/verAsignaturas/add" method="post">
+              <div class="form-group">
+                <input class="form-control" type="text" name="title" placeholder="Title">
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="description" cols="80" placeholder="Add a Description"></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit">
+                Add
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <table class="table table-success table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Link</th>
+            </tr>
+          </thead>
+          <% for(var i=0; i < subjects.length; i++) { %>
+            <tbody>
+              <tr>
+                <td><strong>
+                    <%= subjects[i].title %>
+                  </strong></td>
+                <td>
+                  <%= subjects[i].description %>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+            <% } %>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <% include partials/_footer %>

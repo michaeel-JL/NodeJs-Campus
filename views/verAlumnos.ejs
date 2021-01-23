@@ -1,0 +1,52 @@
+<% include partials/_header %>
+<div class="container">
+
+    <div class="row">
+      <!--FORM-->
+  <!--     <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <form action="/pruebas/añadir_asignatura" method="post">
+              <div class="form-group">
+                <input type="nombre"  class="fadeIn second" name="nombre" placeholder="Nombre"> <br>
+            </div>
+              <div class="form-group">
+                <textarea class="form-control" name="description" cols="80"
+                  placeholder="Add a Description"
+                  ></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit">
+                Add
+              </button>
+            </form>
+          </div>
+        </div>
+      </div> -->
+
+        <!-- LIST -->
+        <h1>Alumnos</h1>
+    <div class="col-md-7">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Rol</th>
+          </tr>
+        </thead>
+
+        <% for(var i=0; i < users.length; i++) { %>
+          <tr>
+            <% if(users[i].rol == "Alumno") { %>
+            <td><strong><%= users[i].email %></strong></td>
+            <td><%= users[i].password %></td>
+            <td><%= users[i].rol %></td>
+          </tr>
+          <% } %>
+        <% } %>
+      </table>
+    </div>
+  </div>
+
+</div>
+<% include partials/_footer %>

@@ -11,6 +11,7 @@ router.get('/tasks',isAuthenticated, async (req, res) => {
   });
 });
 
+//Boton anadir
 router.post('/tasks/add', isAuthenticated,async (req, res, next) => {
   const task = new Task(req.body);
   task.usuario=req.user._id;
@@ -18,6 +19,7 @@ router.post('/tasks/add', isAuthenticated,async (req, res, next) => {
   res.redirect('/tasks');
 });
 
+//Boton de tarea hecha
 router.get('/tasks/turn/:id',isAuthenticated, async (req, res, next) => {
   let { id } = req.params;
   const task = await Task.findById(id);
@@ -26,7 +28,7 @@ router.get('/tasks/turn/:id',isAuthenticated, async (req, res, next) => {
   res.redirect('/tasks');
 });
 
-
+//Boton editar
 router.get('/tasks/edit/:id', isAuthenticated, async (req, res, next) => {
   const task = await Task.findById(req.params.id);
   console.log(task);
@@ -39,12 +41,14 @@ router.post('/tasks/edit/:id',isAuthenticated, async (req, res, next) => {
   res.redirect('/tasks');
 });
 
+//Boton eliminar
 router.get('/tasks/delete/:id', isAuthenticated,async (req, res, next) => {
   let { id } = req.params;
   await Task.remove({_id: id});
   res.redirect('/tasks');
 });
 
+//Boton buscar
 router.get('/tasks/search',isAuthenticated, async (req, res, next) => {
   let search = req.query.search;
   console.log(search);
