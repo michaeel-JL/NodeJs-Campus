@@ -25,4 +25,27 @@ router.get('/verAsignaturas', (req, res, next) => {
   });
   
   
+
+  //Boton editar
+router.get('/verAsignaturas/edit/:id', async (req, res, next) => {
+  const asig = await Subject.findById(req.params.id);
+  console.log(asig);
+  res.render('verInfoAsignaturas', { asig });
+});
+
+
+/* router.post('/verAsignaturas/edit/:id', async (req, res, next) => {
+
+  res.redirect('/verAsignaturas');
+}) */;
+
+
+//Boton eliminar
+router.get('/verAsignaturas/delete/:id', async (req, res, next) => {
+  let { id } = req.params;
+  await Subject.remove({_id: id});
+  res.redirect('/verAsignaturas');
+});
+
+
     module.exports = router;

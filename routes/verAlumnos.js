@@ -9,5 +9,24 @@ const User = require('../models/user');
   });
   })
   
+
+  //Boton eliminar
+router.get('/verAlumnos/delete/:id', async (req, res, next) => {
+  let { id } = req.params;
+  await User.remove({_id: id});
+  res.redirect('/verAlumnos');
+});
+
+
+//Boton anadir
+router.post('/verAlumnos/add',async (req, res, next) => {
+  const user = new User(req.body);
+  user.usuario=req.user._id;
+  await user.save();
+  res.redirect('/verAlumnos');
+});
+
+
+
   
     module.exports = router;

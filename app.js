@@ -20,6 +20,7 @@ var subjectsRouter = require('./routes/subjects');
 var verProfesoresRouter = require('./routes/verProfesores');
 var verAlumnosRouter = require('./routes/verAlumnos');
 var verAsignaturasRouter = require('./routes/verAsignaturas');
+var verInfoAsignaturasRouter = require('./routes/verInfoAsignaturas');
 
 
 
@@ -57,6 +58,7 @@ app.use('/', subjectsRouter);
 app.use('/', verProfesoresRouter);
 app.use('/', verAlumnosRouter);
 app.use('/', verAsignaturasRouter);
+app.use('/', verInfoAsignaturasRouter);
 
 
 

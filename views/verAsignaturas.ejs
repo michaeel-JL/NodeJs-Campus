@@ -19,15 +19,18 @@ EN LA VIEW DE EDITAR ASIGNATURAS DEBEMOS PONER IFS PARA SABER SI EL ROL ES ALUMN
 </style>
   <div class="container" style="padding-left: 0;">
     <div class="row">
+      
       <div class="col-md-5">
+        <% if (user.rol == "Administrador") { %>
         <div class="card">
           <div class="card-body">
+            <h5>Añadir Asignatura</h5>
             <form action="/verAsignaturas/add" method="post">
               <div class="form-group">
-                <input class="form-control" type="text" name="title" placeholder="Title">
+                <input class="form-control" type="text" name="title" placeholder="Titulo">
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="description" cols="80" placeholder="Add a Description"></textarea>
+                <textarea class="form-control" name="description" cols="80" placeholder="Descripción"></textarea>
               </div>
               <button class="btn btn-primary" type="submit">
                 Add
@@ -35,8 +38,10 @@ EN LA VIEW DE EDITAR ASIGNATURAS DEBEMOS PONER IFS PARA SABER SI EL ROL ES ALUMN
             </form>
           </div>
         </div>
+        <% } %>
       </div>
 
+      <% if (user.rol == "Profesor") { %>
       <div class="col-md-7">
         <table class="table table-success table-striped">
           <thead>
@@ -50,7 +55,9 @@ EN LA VIEW DE EDITAR ASIGNATURAS DEBEMOS PONER IFS PARA SABER SI EL ROL ES ALUMN
             <tbody>
               <tr>
                 <td><strong>
-                    <%= subjects[i].title %>
+                    <a href="/verInfoAsignaturas/" >
+                      <%= subjects[i].title %>
+                    </a>
                   </strong></td>
                 <td>
                   <%= subjects[i].description %>
@@ -61,6 +68,73 @@ EN LA VIEW DE EDITAR ASIGNATURAS DEBEMOS PONER IFS PARA SABER SI EL ROL ES ALUMN
             <% } %>
         </table>
       </div>
+      <% } %>
+      
+      <% if (user.rol == "Alumno") { %>
+      <div class="col-md-7" >
+        <table class="table table-success table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Link</th>
+            </tr>
+          </thead>
+          <% for(var i=0; i < subjects.length; i++) { %>
+            <tbody>
+              <tr>
+                <td><strong>
+                      <%= subjects[i].title %>
+                  </strong></td>
+                <td>
+                  <%= subjects[i].description %>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+            <% } %>
+        </table>
+      </div>
+      <% } %>
+
+      <% if (user.rol == "Administrador") { %>
+        <div class="col-md-7">
+          <table class="table table-success table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Link</th>
+                <th scope="col">Borrado</th>
+
+              </tr>
+            </thead>
+            <% for(var i=0; i < subjects.length; i++) { %>
+              <tbody>
+                <tr>
+                  <td><strong>
+                      <a href="/verInfoAsignaturas/"  >
+                         <%= subjects[i].title %>
+                      </a>
+                    </strong></td>
+                  <td>
+                    <%= subjects[i].description %>
+                  </td>
+                  <td>
+                  
+                  </td>
+                  <td>
+                    <a href="/verAsignaturas/delete/<%= subjects[i]._id %>"
+                      class="btn btn-danger">
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              <% } %>
+          </table>
+        </div>
+        <% } %>
     </div>
   </div>
 
