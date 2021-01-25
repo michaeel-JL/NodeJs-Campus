@@ -6,14 +6,7 @@ const Subject = require('../models/subject');
 router.get('/verAsignaturas', (req, res, next) => {
     res.render('verAsignaturas');
   })
-  
-  // router.get('/verAsignaturas', async (req, res, next) => {
-  //     const users = await User.find({'user': req.user});
-  //     console.log("bieeeeeeeeen");
-  // res.render('user', {
-  //   users
-  // });
-  // })
+
 
   router.post('/verAsignaturas/add',(req, res) => {
     const subject = new Subject(req.body);
@@ -30,15 +23,8 @@ router.get('/verAsignaturas', (req, res, next) => {
 router.get('/verAsignaturas/edit/:id', async (req, res, next) => {
   const asig = await Subject.findById(req.params.id);
   console.log(asig);
-  res.render('verInfoAsignaturas', { asig });
+  res.render('infoAsignatura', { asig });
 });
-
-
-/* router.post('/verAsignaturas/edit/:id', async (req, res, next) => {
-
-  res.redirect('/verAsignaturas');
-}) */;
-
 
 //Boton eliminar
 router.get('/verAsignaturas/delete/:id', async (req, res, next) => {

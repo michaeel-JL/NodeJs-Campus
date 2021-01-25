@@ -8,14 +8,6 @@ div.container-fluid{
    padding-right: 0px;
 }
 
-/* HAY QUE CONSEGUIR QUE AL DAR CLIC EN EL NOMBRE NOS LLEVE A OTRA VIEW DONDE NOS MUESTRE 
-LOS ALUMNOS Y PROFESORES INSCRITOS EN ESA ASIGNATURA. ES PARECIDO A LA VIEW EDIT: 
-EN LA VIEW DE EDITAR ASIGNATURAS DEBEMOS PONER IFS PARA SABER SI EL ROL ES ALUMNO O PROFESOR*/
-
-/* TAMBIEN DEBEMOS IMPLEMENTAR LOS BOTONES PARA EDITAR/ELIMINAR LAS ASIGNATURAS YA EXISTENTES */
-
-/* UNA VEZ HECHOS LOS BOTONES SERIAN LOS MISMOS PARA ALUMNOS Y PROFESORES - COPY PASTE LO QUE TE GUSTA JAIIII */
-
 </style>
   <div class="container" style="padding-left: 0;">
     <div class="row">
@@ -113,9 +105,9 @@ EN LA VIEW DE EDITAR ASIGNATURAS DEBEMOS PONER IFS PARA SABER SI EL ROL ES ALUMN
               <tbody>
                 <tr>
                   <td><strong>
-                      <a href="/verInfoAsignaturas/"  >
-                         <%= subjects[i].title %>
-                      </a>
+                    <a href="/verAsignaturas/edit/<%= subjects[i]._id %>" >
+                      <%= subjects[i].title %>
+                   </a>
                     </strong></td>
                   <td>
                     <%= subjects[i].description %>

@@ -1,0 +1,18 @@
+<% include partials/_header %>
+<div class="container">
+    <div class="row">
+      <!--FORM-->
+      <div class="col-md-5 offset-md-3">
+        <div class="card">
+          <div class="card-body">
+            <form action="/verAsignaturas/edit/<%= asig._id %>" method="post">
+                <h1><%= asig.title %></h1>
+                <h3><%= asig.description %></h3>
+           </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% include partials/_footer %>
+

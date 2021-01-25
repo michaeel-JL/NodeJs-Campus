@@ -27,6 +27,19 @@ router.post('/verAlumnos/add',async (req, res, next) => {
 });
 
 
+//Boton editar
+router.get('/verAlumnos/edit/:id', async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  console.log(user);
+  res.render('editUser', { user });
+});
+
+router.post('/verAlumnos/edit/:id', async (req, res, next) => {
+  const { id } = req.params;
+  await User.update({_id: id}, req.body);
+  res.redirect('/verAlumnos');
+});
+
 
   
-    module.exports = router;
+module.exports = router;
