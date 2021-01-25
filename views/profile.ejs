@@ -1,9 +1,9 @@
 <% include partials/_header %>
-
-
-
-
-
+<script languaje="JavaScript">
+  function pulsar() {
+  alert("Hola!![aqui ponen lo que quieran que aparesca al pulsar el boton]");
+  }
+  </script>
 <div class="col-md-7 mx-auto">
     <table class="table table-bordered table-hover">
       <thead>
@@ -30,6 +30,61 @@
           </tr>
       </tbody>
     </table>
+    <br><br><br><br>
+
+    <h2>Cambiar contraseña</h2>
+
+    <% if (user.rol == "Alumno") { %>
+    <form action="/verAlumnos/edit2.0/<%= user._id %>" method="post">
+      <div class="form-group">
+        <input class="form-control"  type="hidden" name="email" value="<%= user.email%>">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="password" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="hidden" name="role" id="role" value="<%= user.rol%>">
+     </div>
+    <button class="btn btn-primary" type="submit">
+      Cambiar contraseña
+    </button>
+  </form>
+  <% } %>
+
+  <% if (user.rol == "Profesor") { %>
+  <form action="/verProfesores/edit2.0/<%= user._id %>" method="post">
+    <div class="form-group">
+      <input class="form-control"  type="hidden" name="email" value="<%= user.email%>">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" name="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="hidden" name="role" id="role" value="<%= user.rol%>">
+   </div>
+  <button class="btn btn-primary" type="submit">
+    Cambiar contraseña
+  </button>
+</form>
+<% } %>
+
+
+<% if (user.rol == "Administrador") { %>
+  <form action="/verProfesores/edit3.0/<%= user._id %>" method="post">
+    <div class="form-group">
+      <input class="form-control"  type="hidden" name="email" value="<%= user.email%>">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" name="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="hidden" name="role" id="role" value="<%= user.rol%>">
+   </div>
+  <button class="btn btn-primary" type="submit">
+    Cambiar contraseña
+  </button>
+</form>
+<% } %>
     <%= user.subjects%>
   </div>
 </div>

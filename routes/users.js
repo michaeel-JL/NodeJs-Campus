@@ -13,7 +13,18 @@ router.post('/signup', passport.authenticate('local-signup', {
   successRedirect: '/profile',
   failureRedirect: '/signup',
   failureFlash: true
+}));
+
+router.post('/signupAlumnos', passport.authenticate('local-signup', {
+  successRedirect: '/verAlumnos',
+  failureRedirect: '/signup',
+  failureFlash: true
 })); 
+router.post('/signupProfesores', passport.authenticate('local-signup', {
+  successRedirect: '/verProfesores',
+  failureRedirect: '/signup',
+  failureFlash: true
+}));
 
 router.get('/signin', (req, res, next) => {
   res.render('signin');
@@ -31,7 +42,7 @@ router.get('/profile',isAuthenticated, (req, res, next) => {
 
 router.get('/logout', (req, res, next) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('/signin');
 });
 
 

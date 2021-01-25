@@ -34,7 +34,7 @@ div.container-fluid{
       </div>
 
       <% if (user.rol == "Profesor") { %>
-      <div class="col-md-7">
+      <div class="col-md-12">
         <table class="table table-success table-striped">
           <thead>
             <tr>
@@ -47,7 +47,7 @@ div.container-fluid{
             <tbody>
               <tr>
                 <td><strong>
-                    <a href="/verInfoAsignaturas/" >
+                  <a href="/verAsignaturas/edit/<%= subjects[i]._id %>" >
                       <%= subjects[i].title %>
                     </a>
                   </strong></td>
@@ -63,7 +63,7 @@ div.container-fluid{
       <% } %>
       
       <% if (user.rol == "Alumno") { %>
-      <div class="col-md-7" >
+      <div class="col-md-12" >
         <table class="table table-success table-striped">
           <thead>
             <tr>
@@ -120,6 +120,9 @@ div.container-fluid{
                       class="btn btn-danger">
                       Delete
                     </a>
+                    <a href="/verAsignaturas/edit/<%= subjects[i]._id %>" class="btn btn-info">
+                      Edit
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -132,3 +135,4 @@ div.container-fluid{
 
   </div>
   <% include partials/_footer %>
+

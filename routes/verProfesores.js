@@ -12,7 +12,6 @@ router.get('/verProfesores', async (req, res) => {
 })
 
 
-
   //Boton eliminar
   router.get('/verProfesores/delete/:id', async (req, res, next) => {
     let { id } = req.params;
@@ -21,7 +20,7 @@ router.get('/verProfesores', async (req, res) => {
   });
 
 
-  
+
 //Boton anadir
 router.post('/verProfesores/add',async (req, res, next) => {
   const user = new User(req.body);
@@ -31,5 +30,29 @@ router.post('/verProfesores/add',async (req, res, next) => {
 });
 
 
+//Boton editar
+router.get('/verProfesores/edit/:id', async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  console.log(user);
+  res.render('editUser', { user });
+});
+
+router.post('/verProfesores/edit/:id', async (req, res, next) => {
+  const { id } = req.params;
+  await User.update({_id: id}, req.body);
+  res.redirect('/verProfesores');
+});
+
+router.post('/verProfesores/edit2.0/:id', async (req, res, next) => {
+  const { id } = req.params;
+  await User.update({_id: id}, req.body);
+  res.redirect('/profile');
+});
+
+router.post('/verProfesores/edit3.0/:id', async (req, res, next) => {
+  const { id } = req.params;
+  await User.update({_id: id}, req.body);
+  res.redirect('/profile');
+});
 
   module.exports = router;

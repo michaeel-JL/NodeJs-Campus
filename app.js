@@ -16,11 +16,9 @@ require('./passport/local-auth');
 
 var tasksRouter = require('./routes/tasks');
 var usersRouter = require('./routes/users');
-var subjectsRouter = require('./routes/subjects');
 var verProfesoresRouter = require('./routes/verProfesores');
 var verAlumnosRouter = require('./routes/verAlumnos');
 var verAsignaturasRouter = require('./routes/verAsignaturas');
-
 
 
 // view engine setup
@@ -53,12 +51,9 @@ app.use((req, res, next) => {
 //routes
 app.use('/', usersRouter);
 app.use('/', tasksRouter);
-app.use('/', subjectsRouter);
 app.use('/', verProfesoresRouter);
 app.use('/', verAlumnosRouter);
 app.use('/', verAsignaturasRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -15,9 +15,10 @@ const SubjectSchema = Schema({
     type: Boolean,
     default: false
   },
-  usuario: [
+  usuers: [
     {type: mongoose.Schema.Types.ObjectId, ref:'user'}
-]
+  ]
+
 });
 
 module.exports = mongoose.model('subjects', SubjectSchema);

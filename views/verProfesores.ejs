@@ -11,9 +11,10 @@
       <center>
       <div class="card">
         <div class="card-body">
+
           <h5>Añadir Profesor</h5>
 
-          <form action="/verProfesores/add" method="post">
+          <form action="/signupProfesores" method="POST">
             <div class="form-group">
               <input class="form-control" type="text" name="email" placeholder="Email">
             </div>
@@ -21,22 +22,22 @@
               <input class="form-control" type="text" name="password" placeholder="Password">
             </div>
             <div class="form-group">
-              <input class="form-control" type="hidden" name="rol" value="Profesor">
+              <input class="form-control" type="hidden" name="role" id="role" value="Profesor">
             </div>
           
             <button class="btn btn-primary" type="submit">
               Añadir
             </button>
           </form>
+
+
         </div>
       </div>
     </center>
     </div>
 
 
-        <!-- LIST -->
-
-        
+    <!-- LIST -->
     <div class="col-md-8">
       <table class="table table-bordered table-hover">
         <thead>
@@ -61,10 +62,10 @@
               <td><a href="/verProfesores/delete/<%= users[i]._id %>"
                 class="btn btn-danger">
                 Delete
-              </a> <br><br>
-              <a 
-                class="btn btn-warning">
-                Cambiar Rol
+              </a>
+
+              <a href="/verProfesores/edit/<%= users[i]._id %>" class="btn btn-info">
+                Edit
               </a>
               </td>
             </tr>

@@ -22,7 +22,7 @@ div.container-fluid{
           <div class="card-body">
             <h5>Añadir Alumno</h5>
 
-            <form action="/verAlumnos/add" method="post">
+            <form action="/signupAlumnos" method="POST">
               <div class="form-group">
                 <input class="form-control" type="text" name="email" placeholder="Email">
               </div>
@@ -30,7 +30,7 @@ div.container-fluid{
                 <input class="form-control" type="text" name="password" placeholder="Password">
               </div>
               <div class="form-group">
-                <input class="form-control" type="hidden" name="rol" value="Alumno">
+                <input class="form-control" type="hidden" name="role" id="role" value="Alumno">
               </div>
 
               <button class="btn btn-primary" type="submit">
