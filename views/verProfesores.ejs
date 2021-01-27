@@ -14,7 +14,7 @@
 
           <h5>Añadir Profesor</h5>
 
-          <form action="/signupProfesores" method="POST">
+          <form action="/verProfesores/add" method="POST">
             <div class="form-group">
               <input class="form-control" type="text" name="email" placeholder="Email">
             </div>
@@ -36,14 +36,12 @@
     </center>
     </div>
 
-
     <!-- LIST -->
-    <div class="col-md-8">
+    <div class="col-md-9">
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <h1></h1>
-            <th>Usuario</th>
             <th>Email</th>
             <th>Password</th>
             <th>Rol
@@ -55,7 +53,6 @@
           <% for(var i=0; i < users.length; i++) { %>
             <tr>
               <% if(users[i].rol == "Profesor") { %>
-              <td><%= i + 1%></td>
               <td><strong><%= users[i].email %></strong></td>
               <td><%= users[i].password %></td>
               <td><%= users[i].rol %></td>

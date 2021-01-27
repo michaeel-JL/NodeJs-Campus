@@ -24,6 +24,9 @@ div.container-fluid{
               <div class="form-group">
                 <textarea class="form-control" name="description" cols="80" placeholder="Descripción"></textarea>
               </div>
+              <div class="form-group">
+                <textarea class="form-control" name="link" cols="80" placeholder="Link"></textarea>
+              </div>
               <button class="btn btn-primary" type="submit">
                 Add
               </button>
@@ -54,7 +57,12 @@ div.container-fluid{
                 <td>
                   <%= subjects[i].description %>
                 </td>
-                <td></td>
+                <td>
+
+                  <a href="<%= subjects[i].link %>">
+                    <%= subjects[i].link %>
+                  </a>
+                </td>
               </tr>
             </tbody>
             <% } %>
@@ -81,7 +89,11 @@ div.container-fluid{
                 <td>
                   <%= subjects[i].description %>
                 </td>
-                <td></td>
+                <td>
+                  <a href="<%= subjects[i].link %>" >
+                    <%= subjects[i].link %>
+                  </a>
+                </td>
               </tr>
             </tbody>
             <% } %>
@@ -105,7 +117,7 @@ div.container-fluid{
               <tbody>
                 <tr>
                   <td><strong>
-                    <a href="/verAsignaturas/edit/<%= subjects[i]._id %>" >
+                    <a href="/verAsignaturas/edit/<%= subjects[i]._id %>">
                       <%= subjects[i].title %>
                    </a>
                     </strong></td>
@@ -113,7 +125,9 @@ div.container-fluid{
                     <%= subjects[i].description %>
                   </td>
                   <td>
-                  
+                    <a href="<%= subjects[i].link %>" >
+                      <%= subjects[i].link %>
+                    </a>
                   </td>
                   <td>
                     <a href="/verAsignaturas/delete/<%= subjects[i]._id %>"

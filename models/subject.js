@@ -11,14 +11,15 @@ const SubjectSchema = Schema({
     type: String,
     required: true
 },
-  status: {
-    type: Boolean,
-    default: false
-  },
-  usuers: [
-    {type: mongoose.Schema.Types.ObjectId, ref:'user'}
+link: {
+  type : String, required : true
+},
+  alumnos: [
+    {type:Array}
+  ],
+  profesores: [
+    {type: Array}
   ]
-
 });
 
 module.exports = mongoose.model('subjects', SubjectSchema);

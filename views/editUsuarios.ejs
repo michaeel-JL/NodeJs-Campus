@@ -1,0 +1,41 @@
+<% include partials/_header %>
+
+<div class="container">
+  <div class="row">
+
+    
+    <!--FORM-->
+    
+    <div class="col-md-5 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <% if(userIniciado.rol=="Alumno" ) { %>
+          <form action="/verAlumnos/edit/<%= userIniciado._id %>" method="post">
+          <% } %>
+          <% if(userIniciado.rol=="Profesor" ) { %>
+            <form action="/verProfesores/edit/<%= userIniciado._id %>" method="post">
+          <% } %>
+            <h5>Usuario</h5>
+            <div class="form-group">
+              <input class="form-control" type="text" name="email" placeholder="email" value="<%= userIniciado.email %>">
+            </div>
+            <h5>Password</h5>
+            <div class="form-group">
+              <textarea class="form-control" name="password" cols="80"
+                placeholder="password"
+                ><%= user.password %></textarea>
+            </div>
+            <h5>Rol</h5>
+            <input type="radio" name="rol" id="rol" value="Administrador">Administrador
+            <input type="radio" name="rol" id="rol" value="Profesor">Profesor
+            <input type="radio" name="rol" id="rol" value="Alumno">Alumno          
+            <br><br>
+            <button class="btn btn-primary" type="submit">
+              Update 
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+<% include partials/_footer%>

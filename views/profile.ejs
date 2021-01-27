@@ -35,7 +35,17 @@
     <h2>Cambiar contraseña</h2>
 
     <% if (user.rol == "Alumno") { %>
-    <form action="/verAlumnos/edit2.0/<%= user._id %>" method="post">
+    <form action="/verAlumnos/editPassword/<%= user._id %>" method="post">
+    <% } %>
+
+    <% if (user.rol == "Profesor") { %>
+    <form action="/verProfesores/editPassword/<%= user._id %>" method="post">
+    <% } %>
+    
+    <% if (user.rol == "Administrador") { %>
+    <form action="/verProfesores/editPasswordAdmin/<%= user._id %>" method="post">
+    <% } %>
+
       <div class="form-group">
         <input class="form-control"  type="hidden" name="email" value="<%= user.email%>">
       </div>
@@ -49,43 +59,6 @@
       Cambiar contraseña
     </button>
   </form>
-  <% } %>
-
-  <% if (user.rol == "Profesor") { %>
-  <form action="/verProfesores/edit2.0/<%= user._id %>" method="post">
-    <div class="form-group">
-      <input class="form-control"  type="hidden" name="email" value="<%= user.email%>">
-    </div>
-    <div class="form-group">
-      <input class="form-control" type="text" name="password" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <input class="form-control" type="hidden" name="role" id="role" value="<%= user.rol%>">
-   </div>
-  <button class="btn btn-primary" type="submit">
-    Cambiar contraseña
-  </button>
-</form>
-<% } %>
-
-
-<% if (user.rol == "Administrador") { %>
-  <form action="/verProfesores/edit3.0/<%= user._id %>" method="post">
-    <div class="form-group">
-      <input class="form-control"  type="hidden" name="email" value="<%= user.email%>">
-    </div>
-    <div class="form-group">
-      <input class="form-control" type="text" name="password" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <input class="form-control" type="hidden" name="role" id="role" value="<%= user.rol%>">
-   </div>
-  <button class="btn btn-primary" type="submit">
-    Cambiar contraseña
-  </button>
-</form>
-<% } %>
-    <%= user.subjects%>
   </div>
 </div>
 <% include partials/_footer %>

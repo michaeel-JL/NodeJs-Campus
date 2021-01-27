@@ -23,6 +23,7 @@ passport.use('local-signup', new LocalStrategy({
     const newUser = new User();
     newUser.email = email;
     newUser.password = newUser.encryptPassword(password);
+    newUser.en
     const bodyRole = req.body.role;
     newUser.rol = req.body.role;
 
@@ -39,11 +40,15 @@ passport.use('local-signin', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, async (req, email, password, done) => {
+
   const user = await User.findOne({email: email});
+
   if(!user) {
+
     return done(null, false, req.flash('signinMessage', 'Usuario incorrecto'));
   }
   if(!user.comparePassword(password)) {
+
     return done(null, false, req.flash('signinMessage', 'Contraseña incorrecta'));
   }
   return done(null, user);

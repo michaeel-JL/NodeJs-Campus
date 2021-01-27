@@ -1,0 +1,150 @@
+<% include partials/_header %>
+  <% if(user.rol=="Profesor" ) { %>
+
+    <div class="container">
+      <div class="row">
+        <!--FORM-->
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <form action="/verAsignaturas/edit/<%= subjects._id %>" method="post">
+                <div class="form-group">
+                  <input class="form-control" type="text" name="title" placeholder="Title"
+                    value="<%= subjects.title %>">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="description" cols="80" rows="8"
+                    placeholder="Add a Description"><%= subjects.description %></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit">
+                  Update
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <% } else { %>
+
+          <div class="container">
+            <div class="row">
+              <!--FORM-->
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <form action="/verAsignaturas/edit/<%= subjects._id %>" method="post">
+                      <div class="form-group">
+                        <input class="form-control" type="text" name="title" id="title" placeholder="Title"
+                          value="<%= subjects.title %>">
+                      </div>
+                      <div class="form-group">
+                        <textarea class="form-control" name="description" cols="80" rows="8"
+                          placeholder="Add a Description"><%= subjects.description %></textarea>
+                      </div>
+                      <div class="form-group">
+                        <input class="form-control" type="text" name="id" id="id"
+                          value="<%= subjects._id %>">
+                      </div>
+                      <button class="btn btn-primary" type="submit">
+                        Update
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Profesores</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+
+                </table>
+              </div>
+
+              <div class="col-md-4">
+                <table class="table">
+                  <thead>
+                    <tr>
+
+                      <th scope="col">Alumnos</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Profesores</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0; i < users.length; i++) { %>
+                      <tr>
+                        <% if(users[i].rol=="Profesor" ) { %>
+                          <form action="/verAsignaturas/addProfesor/<%= subjects._id %>" method="post">
+                          <td>
+                            <input class="form-control" type="text" name="id" value="<%= users[i]._id %>"> <br>
+                          </td>
+                          <td>
+                              <button class="btn btn-primary" type="submit">
+                                Add
+                              </button>
+                          </td>
+                        </form>
+
+                          <% } %>
+                      </tr>
+                      <% } %>
+                  </tbody>
+
+                </table>
+              </div>
+
+              <div class="col-md-6">
+                <table class="table">
+                  <thead>
+                    <tr>
+
+                      <th scope="col">Alumnos</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0; i < users.length; i++) { %>
+                      <tr>
+                        <% if(users[i].rol=="Alumno" ) { %>
+                          <form action="/verAsignaturas/addAlumno/<%= subjects._id %>" method="POST">
+                          <td>
+                            <input  type="text" name="id" value="<%= users[i]._id %>"> <br>
+
+                          </td>
+                          <td>
+                              <button class="btn btn-primary" type="submit">
+                                Add
+                              </button>
+                          </td>
+                        </form>
+
+                          <% } %>
+                      </tr>
+                      <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <% } %>
+            <% include partials/_footer%>

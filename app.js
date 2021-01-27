@@ -6,6 +6,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const logger = require('morgan');
+// var body_parser = require('body-parser');
 
 
 
@@ -31,6 +32,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// app.use(body_parser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'mysecretsession',
