@@ -27,6 +27,7 @@ div.container-fluid{
               <div class="form-group">
                 <textarea class="form-control" name="link" cols="80" placeholder="Link"></textarea>
               </div>
+            
               <button class="btn btn-primary" type="submit">
                 Add
               </button>
@@ -58,10 +59,12 @@ div.container-fluid{
                   <%= subjects[i].description %>
                 </td>
                 <td>
-
-                  <a href="<%= subjects[i].link %>">
-                    <%= subjects[i].link %>
-                  </a>
+                  <%  for (let j = 0; j < subjects[i].link.length; j++) {%>
+                    <a href="<%= subjects[i].link[j] %>" target="_blank">
+                        <%= subjects[i].link[j] %>
+                        <br>
+                    </a>
+                    <% } %>
                 </td>
               </tr>
             </tbody>
@@ -90,9 +93,12 @@ div.container-fluid{
                   <%= subjects[i].description %>
                 </td>
                 <td>
-                  <a href="<%= subjects[i].link %>" >
-                    <%= subjects[i].link %>
+                  <%  for (let j = 0; j < subjects[i].link.length; j++) {%>
+                  <a href="<%= subjects[i].link[j] %>" target="_blank">
+                      <%= subjects[i].link[j] %>
+                      <br>
                   </a>
+                  <% } %>
                 </td>
               </tr>
             </tbody>
@@ -125,9 +131,12 @@ div.container-fluid{
                     <%= subjects[i].description %>
                   </td>
                   <td>
-                    <a href="<%= subjects[i].link %>" >
-                      <%= subjects[i].link %>
-                    </a>
+                    <%  for (let j = 0; j < subjects[i].link.length; j++) {%>
+                      <a href="<%= subjects[i].link[j] %>" target="_blank">
+                          <%= subjects[i].link[j] %>
+                          <br>
+                      </a>
+                      <% } %>
                   </td>
                   <td>
                     <a href="/verAsignaturas/delete/<%= subjects[i]._id %>"

@@ -1,6 +1,8 @@
 const express = require('express');
-const router = express.Router();
 const User = require('../models/user');
+const router = require('express').Router();
+const passport = require('passport');
+
 
 router.get('/verAlumnos', async (req, res) => {
     const users = await User.find();

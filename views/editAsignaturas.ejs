@@ -42,8 +42,13 @@
                           placeholder="Add a Description"><%= subjects.description %></textarea>
                       </div>
                       <div class="form-group">
-                        <input class="form-control" type="text" name="id" id="id"
+                        <input class="form-control" type="hidden" name="id" id="id"
                           value="<%= subjects._id %>">
+                      </div>
+                      <div class="form-group">
+                        <textarea class="form-control" name="link" cols="80" rows="8"
+                        placeholder="Add a Description"><%= subjects.link %></textarea>
+                    
                       </div>
                       <button class="btn btn-primary" type="submit">
                         Update
@@ -126,16 +131,16 @@
                       <tr>
                         <% if(users[i].rol=="Alumno" ) { %>
                           <form action="/verAsignaturas/addAlumno/<%= subjects._id %>" method="POST">
-                          <td>
-                            <input  type="text" name="id" value="<%= users[i]._id %>"> <br>
-
-                          </td>
-                          <td>
-                              <button class="btn btn-primary" type="submit">
-                                Add
-                              </button>
-                          </td>
-                        </form>
+                            <td>
+                              <input readonly="readonly"  class="form-control" type="text" name="email" value="<%= users[i].email %>"> <br>
+                              <input type="hidden" readonly="readonly"  class="form-control" type="text" name="id" value="<%= users[i]._id %>"> <br>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" type="submit">
+                                  Add
+                                </button>
+                            </td>
+                          </form>
 
                           <% } %>
                       </tr>

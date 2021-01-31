@@ -10,18 +10,26 @@ router.get('/verAsignaturas', async (req, res, next) => {
     });
   });
 
-//Añadir
-router.post('/verAsignaturas/add', (req, res) => {
-  const subject = new Subject(req.body);
-  subject.save();
-  res.redirect('/verAsignaturas');
-
-});
+  router.post('/verAsignaturas/add', async(req, res) => {
+    const links = req.body.link
+    var ejemplo = links.split(",");
+    const subject = new Subject();
+    subject.title = req.body.title;
+    subject.description = req.body.description;
+    console.log(subject);
+    await subject.save();
+    for (let i = 0; i < ejemplo.length; i++) {
+    await Subject.updateOne({_id: subject._id}, {$push:{link:ejemplo[i]}}); 
+  
+    }
+    res.redirect('/verAsignaturas/edit');
+  
+  });
 
 //Añadir PROFESOR
 router.post('/verAsignaturas/addProfesor/:id',async (req, res) => {
   const subject = await Subject.findById(req.params.id);
-  await Subject.updateOne({_id: subject._id}, {$push:{profesores:req.body.id}}); 
+  await Subject.updateOne({_id: subject._id}); 
   res.redirect('/verAsignaturas');
 
 });
@@ -55,5 +63,7 @@ router.post('/verAsignaturas/edit/:id', async (req, res) => {
   await Subject.update({_id: id}, req.body);
   res.redirect('/verAsignaturas');
 });
+
+
 
 module.exports = router;
