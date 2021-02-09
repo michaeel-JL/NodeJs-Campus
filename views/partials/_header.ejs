@@ -35,9 +35,6 @@
           <a class="nav-link" href="/profile">Perfil <%=user.email%></a>
         </li>
       
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/tasks">Tareas</a>
-        </li> -->
         <% if (user.rol == "Administrador") { %>
 
           <li class="nav-item dropdown">
@@ -54,6 +51,10 @@
               <div class="dropdown-divider"></div>
 
               <a class="dropdown-item"href="/verAsignaturas">Asignaturas</a>
+              <div class="dropdown-divider"></div>
+
+              <a class="dropdown-item"href="/courses">CURSOS</a>
+
             </div>
           </li>
 

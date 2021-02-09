@@ -34,9 +34,6 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/signin');
 });
 
-
-
-
 function isAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
     return next();

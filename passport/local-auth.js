@@ -26,10 +26,6 @@ passport.use('local-signup', new LocalStrategy({
     newUser.en
     const bodyRole = req.body.role;
     newUser.rol = req.body.role;
-
-    if(bodyRole == "Alumno"){
-      newUser.subjects = (["Lengua", "Matematicas", "Historia", "Quimica"]);
-    }
     await newUser.save();
     done(null, newUser);
   }

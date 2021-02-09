@@ -9,10 +9,13 @@ div.container-fluid{
 }
 
 </style>
+
+
+
   <div class="container" style="padding-left: 0;">
     <div class="row">
       
-      <div class="col-md-5">
+      <div class="col-md-12">
         <% if (user.rol == "Administrador") { %>
         <div class="card">
           <div class="card-body">
@@ -27,6 +30,7 @@ div.container-fluid{
               <div class="form-group">
                 <textarea class="form-control" name="link" cols="80" placeholder="Link"></textarea>
               </div>
+            
               <button class="btn btn-primary" type="submit">
                 Add
               </button>
@@ -58,10 +62,12 @@ div.container-fluid{
                   <%= subjects[i].description %>
                 </td>
                 <td>
-
-                  <a href="<%= subjects[i].link %>">
-                    <%= subjects[i].link %>
-                  </a>
+                  <%  for (let j = 0; j < subjects[i].link.length; j++) {%>
+                    <a href="<%= subjects[i].link[j] %>" target="_blank">
+                        <%= subjects[i].link[j] %>
+                        <br>
+                    </a>
+                    <% } %>
                 </td>
               </tr>
             </tbody>
@@ -90,9 +96,12 @@ div.container-fluid{
                   <%= subjects[i].description %>
                 </td>
                 <td>
-                  <a href="<%= subjects[i].link %>" >
-                    <%= subjects[i].link %>
+                  <%  for (let j = 0; j < subjects[i].link.length; j++) {%>
+                  <a href="<%= subjects[i].link[j] %>" target="_blank">
+                      <%= subjects[i].link[j] %>
+                      <br>
                   </a>
+                  <% } %>
                 </td>
               </tr>
             </tbody>
@@ -102,7 +111,7 @@ div.container-fluid{
       <% } %>
 
       <% if (user.rol == "Administrador") { %>
-        <div class="col-md-7">
+        <div class="col-md-12">
           <table class="table table-success table-striped">
             <thead>
               <tr>
@@ -125,12 +134,15 @@ div.container-fluid{
                     <%= subjects[i].description %>
                   </td>
                   <td>
-                    <a href="<%= subjects[i].link %>" >
-                      <%= subjects[i].link %>
-                    </a>
+                    <%  for (let j = 0; j < subjects[i].link.length; j++) {%>
+                      <a href="<%= subjects[i].link[j] %>" target="_blank">
+                          <%= subjects[i].link[j] %>
+                          <br>
+                      </a>
+                      <% } %>
                   </td>
                   <td>
-                    <a href="/verAsignaturas/delete/<%= subjects[i]._id %>"
+                    <a href="/verAsignaturas/delete/<%= subjects[i]._id %> "
                       class="btn btn-danger">
                       Delete
                     </a>
@@ -146,7 +158,6 @@ div.container-fluid{
         <% } %>
     </div>
   </div>
-
   </div>
   <% include partials/_footer %>
 

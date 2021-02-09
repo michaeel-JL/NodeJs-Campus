@@ -11,9 +11,9 @@ const SubjectSchema = Schema({
     type: String,
     required: true
 },
-link: {
-  type : String, required : true
-},
+link: [
+  {type:Array}
+],
   alumnos: [
     {type:Array}
   ],

@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
-
-
+//Lista todos los profesores
 router.get('/verProfesores', async (req, res) => {
     const users = await User.find();
   res.render('verProfesores', {
@@ -11,14 +10,14 @@ router.get('/verProfesores', async (req, res) => {
   });
 });
 
-//Boton eliminar
+//Boton eliminar profesor
 router.get('/verProfesores/delete/:id', async (req, res, next) => {
   let { id } = req.params;
   await User.remove({_id: id});
   res.redirect('/verProfesores');
 });
 
-//Boton anadir
+//Boton anadir profesor
 router.post('/verProfesores/add',async (req, res, next) => {
   const user = new User(req.body);
   user.rol="Profesor";
@@ -28,7 +27,7 @@ router.post('/verProfesores/add',async (req, res, next) => {
   res.redirect('/verProfesores');
 });
 
-//Boton editar
+//Boton editar profesor
 router.get('/verProfesores/edit/:id', async (req, res, next) => {
   const userIniciado = await User.findById(req.params.id);
   console.log(userIniciado);
@@ -36,12 +35,14 @@ router.get('/verProfesores/edit/:id', async (req, res, next) => {
   res.render('editUsuarios', {userIniciado});
 });
 
+//Boton editar profesor - envia a otra view
 router.post('/verProfesores/edit/:id', async (req, res, next) => {
   const { id } = req.params;
   await User.update({_id: id}, req.body);
   res.redirect('/verProfesores');
 });
 
+//Boton actualizar 
 router.post('/verProfesores/editPassword/:id', async (req, res, next) => {
   const { id } = req.params;
   const user = new User(req.body);
@@ -50,6 +51,7 @@ router.post('/verProfesores/editPassword/:id', async (req, res, next) => {
   res.redirect('/profile');
 });
 
+//Boton editar password
 router.post('/verProfesores/editPasswordAdmin/:id', async (req, res, next) => {
   const { id } = req.params;
   const user = new User(req.body);
@@ -58,4 +60,4 @@ router.post('/verProfesores/editPasswordAdmin/:id', async (req, res, next) => {
   res.redirect('/profile');
 });
 
-  module.exports = router;
+module.exports = router;

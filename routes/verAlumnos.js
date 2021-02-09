@@ -2,20 +2,22 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
+//Lista todos los alumnos
 router.get('/verAlumnos', async (req, res) => {
     const users = await User.find();
   res.render('verAlumnos', {
     users
   });
 })
-  //Boton eliminar
+
+//Boton eliminar alumno
 router.get('/verAlumnos/delete/:id', async (req, res, next) => {
   let { id } = req.params;
   await User.remove({_id: id});
   res.redirect('/verAlumnos');
 });
 
-//Boton anadir
+//Boton anadir alumno
 router.post('/verAlumnos/add',async (req, res, next) => {
   const user = new User(req.body);
   user.rol="Alumno";
@@ -24,18 +26,20 @@ router.post('/verAlumnos/add',async (req, res, next) => {
   res.redirect('/verAlumnos');
 });
 
-//Boton editar
-router.get('/verAlumnos/edit/:id', async (req, res, next) => {
+//Boton editar alumno - envia a otra view
+router.get('/verAlumnos/edit/:id', async (req, res) => {
   const userIniciado = await User.findById(req.params.id);
   res.render('editUsuarios', { userIniciado });
 });
 
-router.post('/verAlumnos/edit/:id', async (req, res, next) => {
+//Boton actualizar
+router.post('/verAlumnos/edit/:id', async (req, res) => {
   const { id } = req.params;
   await User.update({_id: id}, req.body);
   res.redirect('/verAlumnos');
 });
 
+//Boton para editar la password
 router.post('/verAlumnos/editPassword/:id', async (req, res, next) => {
   const { id } = req.params;
   const user = new User(req.body);

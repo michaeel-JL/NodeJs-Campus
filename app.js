@@ -6,20 +6,17 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const logger = require('morgan');
-// var body_parser = require('body-parser');
-
-
 
 var app = express();
 require('./database');
 require('./passport/local-auth');
 
 
-var tasksRouter = require('./routes/tasks');
 var usersRouter = require('./routes/users');
 var verProfesoresRouter = require('./routes/verProfesores');
 var verAlumnosRouter = require('./routes/verAlumnos');
 var verAsignaturasRouter = require('./routes/verAsignaturas');
+var courseRouter = require('./routes/courses');
 
 
 // view engine setup
@@ -32,7 +29,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(body_parser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'mysecretsession',
@@ -52,10 +48,10 @@ app.use((req, res, next) => {
 
 //routes
 app.use('/', usersRouter);
-app.use('/', tasksRouter);
 app.use('/', verProfesoresRouter);
 app.use('/', verAlumnosRouter);
 app.use('/', verAsignaturasRouter);
+app.use('/', courseRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
