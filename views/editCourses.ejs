@@ -1,85 +1,108 @@
 <% include partials/_header %>
 
-<div class="card">
-    <div class="card-body">
-      <h5>Añadir Curso</h5>
-      <form action="/courses/edit" method="post">
-        <div class="form-group">
-          <input class="form-control" type="text" name="name" placeholder="Name"
-          value="<%= courses.name %>">
+
+  <div class="row">
+    <!--FORM-->
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5>Añadir Curso</h5>
+          <form action="/courses/edit/<%= courses._id %>" method="post">
+            <div class="form-group">
+              <input class="form-control" type="text" name="name" placeholder="Name" value="<%= courses.name %>">
+            </div>
+            <div class="form-group">
+              <input class="form-control" name="type" placeholder="Type" value="<%= courses.type %>"></input>
+            </div>
+            <button class="btn btn-primary" type="submit">
+              Update
+            </button>
+          </form>
         </div>
-        <div class="form-group">
-          <input class="form-control" name="type" placeholder="Type" value="<%= courses.type %>" ></input>
-        </div>
-        <button class="btn btn-primary" type="submit">
-          Update
-        </button>
-      </form>
+      </div>
+    </div>
+
+
+      <div class="col-md-6">
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Asignaturas en el curso</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i < courses.subjects.length ; i++) { %>
+            <% var idAsignaturaA=courses.subjects[i] %>
+              <% for(var j=0; j < subjects.length; j++) { %>
+                <tr>
+                  <% var idAsginaturaB=subjects[j]._id %>
+                    <% if(idAsignaturaA.toString()==idAsginaturaB.toString()) { %>
+                      <form action="/courses/deleteSubject/<%= courses._id %>" method="post">
+                        <td>
+                          <input readonly="readonly" class="form-control" type="text" name="name"
+                            value="<%= subjects[j].title %>">
+                          <input type="hidden" readonly="readonly" class="form-control" type="text" name="id"
+                            value="<%= subjects[j]._id %>">
+                        </td>
+                        <td>
+                          <button class="btn btn-danger" type="submit">
+                            Delete
+                          </button>
+                        </td>
+                      </form>
+                      <% } %>
+                </tr>
+                <% } %>
+                  <% } %>
+        </tbody>
+      </table>
+
     </div>
   </div>
 
 
+  <div class="row d-flex justify-content-center">
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Asignaturas</th>
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for(var i=0; i < courses.subjects.length ; i++) { %>
-        <% var idAsignaturaA =  courses.subjects[i] %>
-          <% for(var j=0; j < subjects.length; j++) { %>
+    <div class="col-md-6">
+
+      <table class="table">
+        <thead>
+          <tr>
+            
+            <th scope="col" class="text-center">Todas las Asignaturas</th>
+            <th scope="col" class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i < subjects.length; i++) { %>
             <tr>
-              <% var idAsginaturaB =  subjects[j]._id %>
-          <% if(idAsignaturaA.toString() == idAsginaturaB.toString()) { %>
-            <form action="/courses/deleteSubject/<%= courses._id %>" method="post">
-            <td>
-              <input readonly="readonly"  class="form-control" type="text" name="name" value="<%= subjects[j].title %>">
-              <input  type="hidden" readonly="readonly" class="form-control" type="text" name="id" value="<%= subjects[j]._id %>">
-            </td>
-            <td>
-                <button class="btn btn-danger" type="submit" >
-                  Delete
-                </button>
-            </td>
-          </form>
-          <% } %>
-        </tr>
+              <form action="/courses/addSubject/<%= courses._id %>" method="post">
+                <td>
+                  
+                  <input readonly="readonly" class="form-control" type="text" name="email"
+                    value="<%= subjects[i].title %>">
+                  <input type="hidden" readonly="readonly" class="form-control" type="text" name="id"
+                    value="<%= subjects[i]._id %>">
+                </td>
+                <td>
+                  <center>
+                  <button class="btn btn-success" type="submit">
+                    Add
+                  </button></center>
+                </td>
+              </form>
+            </tr>
             <% } %>
-        <% } %>
-    </tbody>
-  </table>
+        </tbody>
 
+      </table>
+    </div>
 
+    </div>
+  </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Asignaturas</th>
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for(var i=0; i < subjects.length; i++) { %>
-        <tr>
-            <form action="/courses/addSubject/<%= courses._id %>" method="post">
-            <td>
-              <input readonly="readonly"  class="form-control" type="text" name="email" value="<%= subjects[i].title %>">
-              <input  type="hidden" readonly="readonly" class="form-control" type="text" name="id" value="<%= subjects[i]._id %>">
-            </td>
-            <td>
-                <button class="btn btn-success" type="submit" >
-                  Add
-                </button>
-            </td>
-          </form>
-
-        </tr>
-        <% } %>
-    </tbody>
-
-  </table>
-
-<% include partials/_footer%>
+  <% include partials/_footer%>

@@ -6,6 +6,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const logger = require('morgan');
+const fileUpload = require('express-fileupload');
 
 var app = express();
 require('./database');
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
   app.locals.user = req.user;
   next();
 });
+app.use(fileUpload());
 
 //routes
 app.use('/', usersRouter);

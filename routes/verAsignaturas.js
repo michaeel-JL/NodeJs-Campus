@@ -22,11 +22,12 @@ router.get('/verAsignaturas/delete/:id', async (req, res) => {
 //Boton anadir asignatura
 router.post('/verAsignaturas/add', async(req, res) => {
   const links = req.body.link
+
   var ejemplo = links.split(",");
   const subject = new Subject();
   subject.title = req.body.title;
   subject.description = req.body.description;
-  // console.log(subject);
+
   await subject.save();
   for (let i = 0; i < ejemplo.length; i++) {
   await Subject.updateOne({_id: subject._id}, {$push:{link:ejemplo[i]}});
@@ -49,8 +50,6 @@ router.post('/verAsignaturas/edit/:id', async (req, res) => {
   res.redirect('/verAsignaturas');
 
 });
-
-
 
 //Añadir PROFESOR
 router.post('/verAsignaturas/addProfesor/:id',async (req, res) => {
@@ -102,10 +101,30 @@ router.post('/verAsignaturas/deleteAlumno/:id', async (req, res) => {
   await Subject.update({_id: subject._id}, {$pull:{alumnos:req.body.id}});
   res.redirect('back');
 });
+
+//agregamos la ruta
+router.post('/carga', (req, res) => {
+  let EDFile=req.files.file
+
+  EDFile.mv(`./files/${EDFile.name}`, async err => {
+
+    if(err){
+    return res.status(500).send({message : err})
+    }else{
+      const id = req.body.id;
+      
+      await Subject.updateOne({_id:id}, {$push:{file:EDFile.name}});
+      // return res.status(200).send({message: 'File Upload'})
+      res.redirect('back');
+    }
+  })
+
+});
+
+router.get('/download/:file', function(req, res){
   
-
-
-
-
+  var file = `./files/${req.params.file}`;
+  res.download(file);
+});
 
 module.exports = router;

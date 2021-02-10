@@ -8,7 +8,7 @@
 
         <div class="card">
           <div class="card-body">
-            <h5>Editar Curso</h5>
+            <h5>Añadir Curso</h5>
             <form action="/courses/add" method="post">
               <div class="form-group">
                 <input class="form-control" type="text" name="name" placeholder="Name">
@@ -17,7 +17,7 @@
                 <input class="form-control" name="type" placeholder="Type"></input>
               </div>
               <button class="btn btn-primary" type="submit">
-                Update
+                Add
               </button>
             </form>
           </div>
@@ -29,16 +29,16 @@
             <tr>
               <th scope="col">Tipo</th>
               <th scope="col">Nombre</th>
-              <th scope="col">Asignaturas</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
 
           <% for(var i=0; i < courses.length; i++) { %>
             <tbody>
               <tr>
-                <td><strong>
+                <td>
                     <%= courses[i].type %>
-                  </strong></td>
+                  </td>
                 <td>
                   <%= courses[i].name %>
                 </td>

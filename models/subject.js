@@ -14,6 +14,9 @@ const SubjectSchema = Schema({
 link: [
   {type:Array}
 ],
+file: [
+  {type:Array}
+],
   alumnos: [
     {type:Array}
   ],

@@ -7,7 +7,7 @@
 
         <div class="col-md-12">
           <div class="card">
-            
+
             <div class="card-body">
               <form action="/verAsignaturas/edit/<%= subjects._id %>" method="post">
                 <div class="form-group">
@@ -20,19 +20,34 @@
                 </div>
 
                 <div class="form-group">
-                  <input class="form-control" type="hidden" name="id" id="id"
-                    value="<%= subjects._id %>">
+                  <input class="form-control" type="hidden" name="id" id="id" value="<%= subjects._id %>">
                 </div>
                 <div class="form-group">
                   <textarea class="form-control" name="link" cols="80" rows="8"
-                  placeholder="Add a Description"><%= subjects.link %></textarea>
-
+                    placeholder="Add a Description"><%= subjects.link %></textarea>
                 </div>
 
                 <button class="btn btn-primary" type="submit">
                   Update
                 </button>
               </form>
+
+              <form action='/carga' method="POST" enctype="multipart/form-data">
+
+                <div class="form-group">
+                  <input class="form-control" type="hidden" name="id" id="id" value="<%= subjects._id %>">
+                </div>
+
+                <input type="file" name="file">
+                <input type="submit" value="Subir">
+              </form>
+
+              <div  class="form-group">
+                <a href="/download/<%= subjects.file %>">
+                  <%= subjects.file %>
+                </a>
+              </div>
+              
             </div>
           </div>
         </div>
@@ -55,12 +70,11 @@
                           placeholder="Add a Description"><%= subjects.description %></textarea>
                       </div>
                       <div class="form-group">
-                        <input class="form-control" type="hidden" name="id" id="id"
-                          value="<%= subjects._id %>">
+                        <input class="form-control" type="hidden" name="id" id="id" value="<%= subjects._id %>">
                       </div>
                       <div class="form-group">
                         <textarea class="form-control" name="link" cols="80" rows="4"
-                        placeholder="Add a Description"><%= subjects.link %></textarea>
+                          placeholder="Add a Description"><%= subjects.link %></textarea>
 
                       </div>
                       <button class="btn btn-primary" type="submit">
@@ -82,26 +96,28 @@
                   </thead>
                   <tbody>
                     <% for(var i=0; i < subjects.profesores.length ; i++) { %>
-                      <% var idProfesorA =  subjects.profesores[i] %>
+                      <% var idProfesorA=subjects.profesores[i] %>
                         <% for(var j=0; j < users.length; j++) { %>
                           <tr>
-                            <% var idUsuario =  users[j]._id %>
-                        <% if(idProfesorA.toString() == idUsuario.toString()) { %>
-                          <form action="/verAsignaturas/deleteProfesor/<%= subjects._id %>" method="post">
-                          <td>
-                            <input readonly="readonly"  class="form-control" type="text" name="email" value="<%= users[j].email %>">
-                            <input  type="hidden" readonly="readonly" class="form-control" type="text" name="id" value="<%= users[j]._id %>">
-                          </td>
-                          <td>
-                              <button class="btn btn-danger" type="submit" >
-                                Delete
-                              </button>
-                          </td>
-                        </form>
-                        <% } %>
-                      </tr>
+                            <% var idUsuario=users[j]._id %>
+                              <% if(idProfesorA.toString()==idUsuario.toString()) { %>
+                                <form action="/verAsignaturas/deleteProfesor/<%= subjects._id %>" method="post">
+                                  <td>
+                                    <input readonly="readonly" class="form-control" type="text" name="email"
+                                      value="<%= users[j].email %>">
+                                    <input type="hidden" readonly="readonly" class="form-control" type="text" name="id"
+                                      value="<%= users[j]._id %>">
+                                  </td>
+                                  <td>
+                                    <button class="btn btn-danger" type="submit">
+                                      Delete
+                                    </button>
+                                  </td>
+                                </form>
+                                <% } %>
+                          </tr>
                           <% } %>
-                      <% } %>
+                            <% } %>
                   </tbody>
                 </table>
               </div>
@@ -118,32 +134,34 @@
                   <tbody>
 
                     <% for(var i=0; i < subjects.alumnos.length ; i++) { %>
-                      <% var idAlumnosA =  subjects.alumnos[i] %>
+                      <% var idAlumnosA=subjects.alumnos[i] %>
                         <% for(var j=0; j < users.length; j++) { %>
                           <tr>
-                            <% var idUsuario =  users[j]._id %>
-                        <% if(idAlumnosA.toString() == idUsuario.toString()) { %>
-                          <form action="/verAsignaturas/deleteAlumno/<%= subjects._id %>" method="post">
-                            <td>
-                              <input readonly="readonly"  class="form-control" type="text" name="email" value="<%= users[j].email %>">
-                              <input  type="hidden" readonly="readonly" class="form-control" type="text" name="id" value="<%= users[j]._id %>">
-                            </td>
-                            <td>
-                                <button class="btn btn-danger" type="submit" >
-                                  Delete
-                                </button>
-                            </td>
-                          </form>
-                        <% } %>
+                            <% var idUsuario=users[j]._id %>
+                              <% if(idAlumnosA.toString()==idUsuario.toString()) { %>
+                                <form action="/verAsignaturas/deleteAlumno/<%= subjects._id %>" method="post">
+                                  <td>
+                                    <input readonly="readonly" class="form-control" type="text" name="email"
+                                      value="<%= users[j].email %>">
+                                    <input type="hidden" readonly="readonly" class="form-control" type="text" name="id"
+                                      value="<%= users[j]._id %>">
+                                  </td>
+                                  <td>
+                                    <button class="btn btn-danger" type="submit">
+                                      Delete
+                                    </button>
+                                  </td>
+                                </form>
+                                <% } %>
                           </tr>
-                      <% } %>
-                  <% } %>
+                          <% } %>
+                            <% } %>
                   </tbody>
                 </table>
               </div>
 
 
-              
+
               <!-- Lista de todos los profesores y alumnos -->
               <div class="col-md-6">
                 <table class="table">
@@ -158,16 +176,18 @@
                       <tr>
                         <% if(users[i].rol=="Profesor" ) { %>
                           <form action="/verAsignaturas/addProfesor/<%= subjects._id %>" method="post">
-                          <td>
-                            <input readonly="readonly"  class="form-control" type="text" name="email" value="<%= users[i].email %>">
-                            <input  type="hidden" readonly="readonly" class="form-control" type="text" name="id" value="<%= users[i]._id %>">
-                          </td>
-                          <td>
-                              <button class="btn btn-success" type="submit" >
+                            <td>
+                              <input readonly="readonly" class="form-control" type="text" name="email"
+                                value="<%= users[i].email %>">
+                              <input type="hidden" readonly="readonly" class="form-control" type="text" name="id"
+                                value="<%= users[i]._id %>">
+                            </td>
+                            <td>
+                              <button class="btn btn-success" type="submit">
                                 Add
                               </button>
-                          </td>
-                        </form>
+                            </td>
+                          </form>
 
                           <% } %>
                       </tr>
@@ -189,25 +209,27 @@
                   <tbody>
                     <% for(var i=0; i < users.length; i++) { %>
                       <tr>
-                        <% if(users[i].rol=="Alumno") { %>
-                                <form action="/verAsignaturas/addAlumno/<%= subjects._id %>" method="POST">
-                                <td>
-                                  <input readonly="readonly"  class="form-control" type="text" name="email" value="<%= users[i].email %>">
-                                  <input type="hidden" readonly="readonly"  class="form-control" type="text" name="id" value="<%= users[i]._id %>">
-                                </td>
-                                <td>
-                                    <button class="btn btn-success" type="submit"  >
-                                      Add
-                                    </button>
-                                </td>
-                              </form>
-                        <% } %>
+                        <% if(users[i].rol=="Alumno" ) { %>
+                          <form action="/verAsignaturas/addAlumno/<%= subjects._id %>" method="POST">
+                            <td>
+                              <input readonly="readonly" class="form-control" type="text" name="email"
+                                value="<%= users[i].email %>">
+                              <input type="hidden" readonly="readonly" class="form-control" type="text" name="id"
+                                value="<%= users[i]._id %>">
+                            </td>
+                            <td>
+                              <button class="btn btn-success" type="submit">
+                                Add
+                              </button>
+                            </td>
+                          </form>
+                          <% } %>
                       </tr>
-                        <% } %>
+                      <% } %>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
           <% } %>
-<% include partials/_footer%>
+            <% include partials/_footer%>
