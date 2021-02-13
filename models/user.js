@@ -6,8 +6,12 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   email:  { type: String, required: true },
   password:  { type: String, required: true },
-  rol: {type: String, required: true}
+  rol: {type: String, required: true},
+  mensaje: [
+    {type: Array}
+  ]
 });
+
 
 userSchema.methods.encryptPassword = (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));

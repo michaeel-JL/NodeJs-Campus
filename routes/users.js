@@ -49,6 +49,29 @@ function isAuthenticated(req, res, next) {
   res.redirect('/')
 }
 
+router.get('/sugerencias', (req, res, next) => {
+
+  res.render('sugerencias');
+});
+
+router.post('/mensajes/enviarMensajes', async(req, res)=>{
+  var emailprofe=req.body.email;
+  console.log("EMAIL: " +emailprofe);
+  var sugerencia=req.body.mensaje;
+  console.log("MENSAJE: "+sugerencia);
+
+  const user = await User.find();
+
+  for(var i = 0; user.length > i; i++){
+      if(user[i].email.toString() ==emailprofe){
+
+        await User.update({email: emailprofe}, {$push:{mensaje:sugerencia}});
+      }
+
+}
+    res.render('sugerencias')
+});
+
 router.post('/addUserCSV', (req, res) => {
     var fileUsers=req.files.file;
     fileUsers.mv(`./files/users/${fileUsers.name}`,err=>{
@@ -91,4 +114,19 @@ const readCsvFile = async (fileName) => {
         fs.close;
      };
 
+router.get('/notificaciones', (req, res, next) => {
+
+      res.render('notificaciones');
+});
+
+
+
+//Boton eliminar asignatura
+router.get('/notificaciones/delete/:i', async (req, res) => {
+  req.user.mensaje.splice(req.params.i,1);
+  //var notificacion=req.params.mensaje;
+  //7const user = await User.findById(req.params.mensaje);
+  await User.updateOne({_id: req.user.id}, {mensaje: req.user.mensaje});
+ res.redirect('/notificaciones');
+});
 module.exports = router;

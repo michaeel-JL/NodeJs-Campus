@@ -7,6 +7,8 @@ const session = require('express-session');
 const passport = require('passport');
 const logger = require('morgan');
 const fileUpload = require('express-fileupload');
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 var app = express();
 require('./database');
@@ -70,5 +72,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+/* 
+server.listen(8080, function() {
+  console.log('Servidor corriendo en http://localhost:8080');
+}); */
 
 module.exports = app;

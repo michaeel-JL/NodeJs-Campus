@@ -1,0 +1,70 @@
+<% include partials/_header %>
+<link href="//cdn.syncfusion.com/ej2/fabric.css" rel="stylesheet" />
+<script type="text/javascript">
+  if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.5.1/bluebird.min.js"><\/script>');
+  }
+</script>
+<body>
+
+    <% for(var i=0; i < user.mensaje.length; i++) { %>
+    <div id="container">
+      <div tabindex="0" class="e-card profile" style="justify-content: flex-start;">
+
+        <div class="e-card-header">
+          <div class="e-card-header-caption center">
+            <div class="e-card-header-title">Nuevo Mensaje: </div>
+          </div>
+        </div>
+       
+        <div class="form-group">
+            <%=user.mensaje[i]%>
+          </div>
+
+        <form action="/notificaciones/delete" method="POST"></form>
+
+        <div class="e-card-separator">
+        <a href="/notificaciones/delete/<%= i %> "
+            class="btn btn-danger">
+            Delete
+          </a>
+        </div>
+        </form>
+
+      </div>
+    </div>
+    <% } %>
+    
+    <br>
+    
+    
+    <style>
+      #container {
+        max-width: 400px;
+        margin: auto;
+      }
+
+      .e-card.profile .e-card-header-image {
+        background-image: url('./laura.png');
+        width: 70px;
+        height: 70px;
+        background-size: cover;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, 0.54);
+      }
+
+      .e-card.profile .e-card-header .e-card-header-caption .e-card-sub-title {
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.8);
+      }
+
+      .e-card.profile .e-card-header .e-card-header-caption .e-card-header-title {
+        font-size: 18px;
+        font-weight: 500;
+      }
+    </style>
+
+  </body>
+<% include partials/_footer %>
+

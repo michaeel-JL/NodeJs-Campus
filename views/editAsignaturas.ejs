@@ -32,8 +32,9 @@
                 </button>
               </form>
 
-              <form action='/carga' method="POST" enctype="multipart/form-data">
 
+
+              <form action='/carga' method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                   <input class="form-control" type="hidden" name="id" id="id" value="<%= subjects._id %>">
                 </div>
@@ -41,16 +42,27 @@
                 <input type="file" name="file">
                 <input type="submit" value="Subir">
               </form>
+     
+       
 
-              <div  class="form-group">
-                <a href="/download/<%= subjects.file %>">
-                  <%= subjects.file %>
-                </a>
-              </div>
-              
+
             </div>
           </div>
         </div>
+
+        <div class="col-md-12">
+          <div class="card">
+            <h3>Archivos: </h3>
+            <% for(var i=0; i < subjects.file.length; i++) { %>
+              <div  class="form-group">
+                <a href="/download/<%= subjects.file[i] %>">
+                  <%= subjects.file[i] %>
+                </a>
+                <br>
+              </div>
+              <% } %>
+            </div>
+            </div>
 
         <% } else { %>
 

@@ -48,4 +48,5 @@ router.post('/verAlumnos/editPassword/:id', async (req, res, next) => {
   res.redirect('/profile');
 });
 
+
 module.exports = router;
