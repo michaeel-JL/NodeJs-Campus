@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var app = express();
 var path = require('path');
 var cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
@@ -7,10 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const logger = require('morgan');
 const fileUpload = require('express-fileupload');
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
-var app = express();
 require('./database');
 require('./passport/local-auth');
 
@@ -20,6 +18,7 @@ var verProfesoresRouter = require('./routes/verProfesores');
 var verAlumnosRouter = require('./routes/verAlumnos');
 var verAsignaturasRouter = require('./routes/verAsignaturas');
 var courseRouter = require('./routes/courses');
+
 
 
 // view engine setup
@@ -72,10 +71,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-/* 
-server.listen(8080, function() {
-  console.log('Servidor corriendo en http://localhost:8080');
-}); */
 
 module.exports = app;

@@ -2,7 +2,19 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const Subject = require('../models/subject');
+var nodemailer = require('nodemailer');
 
+
+var transporter = nodemailer.createTransport({
+
+  host:'smtp.gmail.com',
+  port: 465,
+  secure: true, 
+  auth: {
+    user: 'nodeifp@gmail.com',
+    pass:'contrasena1'
+  }
+});
 
 //Lista todas las asignaturas
 router.get('/verAsignaturas', async (req, res, next) => {
@@ -46,9 +58,37 @@ router.get('/verAsignaturas/edit/:id', async (req, res) => {
 //Boton actualizar
 router.post('/verAsignaturas/edit/:id', async (req, res) => {
   const { id } = req.params;
+  const subject = await Subject.findById(id);
   await Subject.update({_id: id}, req.body);
-  res.redirect('/verAsignaturas');
 
+  //Creamos las variables necesarias
+  var mensaje = `La asignatura ${subject.title} ha sido modificada.`
+  const alumnos = subject.alumnos;
+  const users = [];
+
+  //Cogemos todos los alumnos de la asignatura
+  for(var i =0; alumnos.length > i; i++){
+    
+    const user = await User.findById(alumnos[i]);
+    console.log("EMAIL: " + user.email);
+    users.push(user.email);
+
+  }
+  var mailOptions = {
+    from: 'nodeifp@gmail.com',
+    to: `${users}`,
+    subject: 'Novedades en tu asignatura!',
+    text: mensaje
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      console.log(error);
+    }else{
+      console.log('Email enviado: '  + info.response);
+    }
+
+  });
+  res.redirect('/verAsignaturas');
 });
 
 //Añadir PROFESOR
@@ -121,8 +161,8 @@ router.post('/carga', (req, res) => {
 
 });
 
+//Descargar archivos
 router.get('/download/:file', function(req, res){
-  
   var file = `./files/${req.params.file}`;
   res.download(file);
 });

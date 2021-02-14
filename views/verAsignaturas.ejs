@@ -84,6 +84,8 @@ div.container-fluid{
               <th scope="col">Nombre</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Link</th>
+              <th scope="col">Archivos</th>
+
             </tr>
           </thead>
           <% for(var i=0; i < subjects.length; i++) { %>
@@ -102,6 +104,16 @@ div.container-fluid{
                       <br>
                   </a>
                   <% } %>
+                </td>
+                <td>
+                  <% for(var j=0; j < subjects[i].file.length; j++) { %>
+                    <div  class="form-group">
+                      <a href="/download/<%= subjects[i].file[j] %>">
+                        <%= subjects[i].file[j] %>
+                      </a>
+                      <br>
+                    </div>
+                    <% } %>
                 </td>
               </tr>
             </tbody>

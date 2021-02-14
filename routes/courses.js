@@ -23,7 +23,7 @@ router.get('/courses/delete/:id', async (req, res) => {
 router.post('/courses/add', async(req, res) => {
     const course = new Course();
     course.name = req.body.name;
-    course.type = req.body.type;
+    course.type = req.body.curso;
     await course.save();
     res.redirect('/courses');
   });
@@ -39,6 +39,7 @@ router.get('/courses/edit/:id', async (req, res) => {
 //Boton actualizar
 router.post('/courses/edit/:id', async (req, res) => {
     const { id } = req.params;
+    console.log(req.body.curso);
     await Course.update({_id: id}, req.body);
     res.redirect('/courses');
   

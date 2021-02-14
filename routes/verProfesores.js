@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const alert = require('alert');
+
 
 //Lista todos los profesores
 router.get('/verProfesores', async (req, res) => {
@@ -20,10 +22,20 @@ router.get('/verProfesores/delete/:id', async (req, res, next) => {
 //Boton anadir profesor
 router.post('/verProfesores/add',async (req, res, next) => {
   const user = new User(req.body);
-  user.rol="Profesor";
-  user.password = user.encryptPassword(req.body.password);
+  const user2 = await User.findOne({'email': user.email})
+  
 
-  await user.save();
+  if(user2) {
+
+    alert("El email ya existe en la base de datos!");
+
+  } else {
+
+    user.rol="Profesor";
+    user.password = user.encryptPassword(req.body.password);
+    await user.save();
+
+  }
   res.redirect('/verProfesores');
 });
 

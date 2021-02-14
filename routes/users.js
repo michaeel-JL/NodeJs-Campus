@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const passport = require('passport');
 const User = require('../models/user');
+const Subject = require('../models/subject');
 const alert = require('alert');
-
 
 const fs = require('fs'); // filesystem
 const csv = require('csv-parser');// Encargado de parsear
@@ -49,84 +49,114 @@ function isAuthenticated(req, res, next) {
   res.redirect('/')
 }
 
-router.get('/sugerencias', (req, res, next) => {
+router.post('/addUserCSV', (req, res) => {
+    var file=req.files.file;
 
-  res.render('sugerencias');
+  if(file.name == "alumnos.csv" || file.name == "profesores.csv"){
+    file.mv(`./files/csv/${file.name}`,err=>{
+
+      if(err) return res.status(500).send({message:err});
+
+      readCsvUsers(`./files/csv/${file.name}`);
+      res.redirect('back');
+    });
+  }else if(file.name == "asignaturas.csv"){
+      file.mv(`./files/csv/${file.name}`,err=>{
+
+          if(err) return res.status(500).send({message:err});
+    
+          readCsvSubjects(`./files/csv/${file.name}`);
+          res.redirect('back');
+        });
+  }else{
+    alert("Error en el nombre del archivo CSV!");
+  }
 });
 
+const readCsvUsers = async (fileName) => {
+  const result=[];
+
+  await fs.createReadStream(fileName)
+    .pipe(csv({ separator: "," }))
+    .on("data", (data) => result.push(data))
+    .on("end", () => {
+      result.map( async user=>{
+
+        const usuario2 = await User.findOne({'email': user.email});
+        if(usuario2) {
+            console.log("Email repetido");
+          } else {
+            var usuario = new User;
+            usuario.email = user.email;
+            usuario.password = usuario.encryptPassword(user.password);
+            usuario.rol=user.rol;
+            usuario.save();
+        }
+       });
+  });
+
+  fs.close;
+};
+     
+const readCsvSubjects= async (fileName) => {
+  const result=[];
+  var repetido = false;
+
+  await fs.createReadStream(fileName)
+    .pipe(csv({ separator: "," }))
+    .on("data", (data) => result.push(data))
+    .on("end", () => {
+      result.map( async subject=>{
+
+        const subject2 = await Subject.findOne({'title': subject.title});
+        if(subject2) {
+            console.log("Asignatura repetida");
+        } else {
+            var asignatura = new Subject;
+            asignatura.title=subject.title;
+            asignatura.description=subject.description;
+            asignatura.save();
+        }
+       });
+  });
+  fs.close;
+};
+
+
+
+//ir a notificaciones
+router.get('/notificaciones', (req, res) => {
+      res.render('notificaciones');
+});
+
+//Enviar mensajes
 router.post('/mensajes/enviarMensajes', async(req, res)=>{
-  var emailprofe=req.body.email;
-  console.log("EMAIL: " +emailprofe);
-  var sugerencia=req.body.mensaje;
-  console.log("MENSAJE: "+sugerencia);
+
+  var emailprofe = req.body.email;
+  var sugerencia = req.body.mensaje;
 
   const user = await User.find();
 
   for(var i = 0; user.length > i; i++){
-      if(user[i].email.toString() ==emailprofe){
+      if(user[i].email.toString() == emailprofe){
 
         await User.update({email: emailprofe}, {$push:{mensaje:sugerencia}});
       }
-
 }
-    res.render('sugerencias')
+    res.render('sugerencias');
 });
 
-router.post('/addUserCSV', (req, res) => {
-    var fileUsers=req.files.file;
-    fileUsers.mv(`./files/users/${fileUsers.name}`,err=>{
-
-      if(err) return res.status(500).send({message:err});
-
-      readCsvFile(`./files/users/${fileUsers.name}`);
-  res.redirect('back');
-    });
-  }) ;
-
-const readCsvFile = async (fileName) => {
-      const result=[];
-      var repetido = false;
-
-      await fs.createReadStream(fileName)
-        .pipe(csv({ separator: "," }))
-        .on("data", (data) => result.push(data))
-        .on("end", () => {
-            result.map( async user=>{
-
-              const usuario2 = await User.findOne({'email': user.email})
-              if(usuario2) {
-                console.log("Email repetido");
-                repetido = true;
-              } else {
-                var usuario = new User;
-                usuario.email=user.email;
-                usuario.password=user.password;
-                usuario.rol=user.rol;
-                usuario.save();
-            }
-          });
-          if(!repetido){
-            alert("Uno o varios emails del archivo CSV ya existen. Se han añadido los nuevos.");
-          }else{
-            alert("Todos han sido añadidos cone exito");
-          }
-        })
-        fs.close;
-     };
-
-router.get('/notificaciones', (req, res, next) => {
-
-      res.render('notificaciones');
+//Vamos a la view sugerencias
+router.get('/sugerencias', (req, res, next) => {
+  res.render('sugerencias');
 });
-
-
 
 //Boton eliminar asignatura
 router.get('/notificaciones/delete/:i', async (req, res) => {
   req.user.mensaje.splice(req.params.i,1);
-  //var notificacion=req.params.mensaje;
-  //7const user = await User.findById(req.params.mensaje);
   await User.updateOne({_id: req.user.id}, {mensaje: req.user.mensaje});
  res.redirect('/notificaciones');
 });
+
+
 module.exports = router;
